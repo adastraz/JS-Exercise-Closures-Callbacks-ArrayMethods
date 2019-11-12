@@ -158,8 +158,10 @@ function processContains(item,list,callback) {
  * [2] Invoking `processDuplicateFree` passing `[1,1,2,2,3]` and `(arr) => arr.length`,
  * should return 3.
 */
-function processDuplicateFree(/* CODE HERE ONLY AFTER COMPLETING ALL OTHER TASKS */) {
-  /* CODE HERE ONLY AFTER COMPLETING ALL OTHER TASKS */
+function processDuplicateFree(list,callback) {
+  return callback(list.filter((item,index) => {
+    return list.indexOf(item) === index
+  }))
 }
 
 /////////////// HIGHER-ORDER ARRAY METHODS ///////////////
@@ -220,8 +222,11 @@ function firstNamesAllCaps(runners) {
  * @returns an array containing only the runners that use the given `tShirtSize`.
  * The runners in the array appear in the same order they appear in the `runners` array.
 */
-function getRunnersByTShirtSize(/* CODE HERE */) {
-  /* CODE HERE */
+function getRunnersByTShirtSize(runners,tShirtSize) {
+  const newRunners = runners.filter(function(currentValue){
+    return currentValue.shirt_size === tShirtSize;
+  });
+  return newRunners;
 }
 
 /**
@@ -234,8 +239,11 @@ function getRunnersByTShirtSize(/* CODE HERE */) {
  * @param runners array of runners like the one inside the /data/runners.js file.
  * @returns a number which is the sum of the donations by all runners.
 */
-function tallyUpDonations(/* CODE HERE */) {
-  /* CODE HERE */
+function tallyUpDonations(runners) {
+  const newRunners = runners.reduce(function(accum, currentValue){
+    return accum + currentValue.donation;
+  },0);
+  return newRunners
 }
 
 /////////////// CLOSURES ///////////////
@@ -255,12 +263,12 @@ function tallyUpDonations(/* CODE HERE */) {
  * etc
 */
 function counterMaker() {
-  // BROKEN CODE STARTS
-  const count = 0;
+
+  let count = 0;
   function counter() {
-    ++count
-  }
-  // BROKEN CODE ENDS
+    return count++;
+  };
+  return counter;
 }
 
 /**
@@ -283,8 +291,16 @@ function counterMaker() {
  * counter() // should return 0
  * etc
 */
-function counterMakerWithLimit(/* CODE HERE */) {
+function counterMakerWithLimit(max) {
   /* CODE HERE */
+  let count = -1;
+  return function counter(){
+    if (count >= max){
+      count = -1;
+    }
+      count++;
+      return count;
+  }
 }
 
 /////////////// END OF CHALLENGE ///////////////
